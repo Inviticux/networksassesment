@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  loadbalancer:
+    build:
+      context: ./loadbalancer
+    ports:
+      - "80:80"
+    depends_on:
+      - dev1
+      - dev2
+      - dev3
+      - dev4
+    networks:
+      - backend
+
+  dev1:
+    image: richarvey/nginx-php-fpm:latest
+    volumes:
+      - ./workers/dev1/index.php:/var/www/html/index.php
+    networks:
+      - backend
+
+  dev2:
+    image: richarvey/nginx-php-fpm:latest
+    volumes:
+      - ./workers/dev2/index.php:/var/www/html/index.php
+    networks:
+      - backend
+
+  dev3:
+    image: richarvey/nginx-php-fpm:latest
+    volumes:
+      - ./workers/dev3/index.php:/var/www/html/index.php
+    networks:
+      - backend
+
+  dev4:
+    image: richarvey/nginx-php-fpm:latest
+    volumes:
+      - ./workers/dev4/index.php:/var/www/html/index.php
+    networks:
+      - backend
+
+networks:
+  backend:
