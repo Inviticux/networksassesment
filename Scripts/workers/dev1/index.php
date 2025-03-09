@@ -1,22 +1,22 @@
 <?php
 $counterFile = 'counter1.csv';
 
-// Check if the counter file exists, if not create it and initialize the counter
+//setup the counterfile either it does or does not exist
 if (!file_exists($counterFile)) {
     $file = fopen($counterFile, 'w');
     fputcsv($file, [0]);
     fclose($file);
 }
 
-// Read the current counter value from the CSV file
+//read the value
 $file = fopen($counterFile, 'r');
 $counter = (int)fgetcsv($file)[0];
 fclose($file);
 
-// Increment the counter
+//add one to counter
 $counter++;
 
-// Write the new counter value back to the CSV file
+//write counter back to file
 $file = fopen($counterFile, 'w');
 fputcsv($file, [$counter]);
 fclose($file);
